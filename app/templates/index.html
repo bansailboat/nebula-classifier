@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nebula Classifier</title>
+
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css'>
+</head>
+<body>
+    <h1>Nebula Classifier</h1>
+
+    <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+
+    {% if inf_cmd %}
+    <p>{{ inf_cmd }}</p>
+    {% endif %}
+
+    {% if filename %}
+    <img src="/static/uploads/{{ filename }}" width="500px">
+    {% endif %}
+</body>
+</html>
