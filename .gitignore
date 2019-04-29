@@ -6,6 +6,3 @@ __pycache__/
 
 # Ignore instance folders
 instance/
-
-# Ignore tf_files folder (b/c this folder is 1GB+)
-tf_files/
