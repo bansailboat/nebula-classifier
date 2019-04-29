@@ -64,7 +64,15 @@ This was by far the most time consuming part of this project. For each nebula in
 
 ### Transfer learning
 
-I wanted to use transfer learning because I knew I wouldn't be able to collect tens of thousands of images in the timeframe I was operating within. I used [this resource](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/?utm_campaign=chrome_series_machinelearning_063016&utm_source=gdev&utm_medium=yt-desc#0) to learn all about it and how powerful it is.
+Transfer learning is a technique in the machine/deep learning ecosystem where a model developed for a task is reused as the starting point for a model for a different task.
+
+I wanted to use transfer learning because I knew I wouldn't be able to collect tens of thousands of images in the timeframe I was operating within. After more research, I settled on using Google's powerful MobileNet model to make training quick but still have enough power for accurate classification. I used [this resource](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/?utm_campaign=chrome_series_machinelearning_063016&utm_source=gdev&utm_medium=yt-desc#0) to learn all about it and how powerful it is.
+
+## Known issues
+
+The images used during training largely affect the results. For example, given a particular dark nebula [LDN 1622](https://www.google.com/search?q=ldn+1622&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiKxYyHh_bhAhWud98KHXGRAUgQ_AUIDigB&biw=1680&bih=869&dpr=2), if I were to input a black and white image into the tool, it would output that the nebula is a dark nebula with a very high (99%+) confidence. However, if I entered an image with a lot more color surrounding this particular nebula, it may output emission with high confidence.
+
+To combat this moving forward, I need to be more systematic about how I'm gathering pictures for both dark and emission nebula as well as the other categories once I get around to that. I need to ensure that I'm training dark nebulae with both dark and colored images to make the tool as realistic and useful as possible.
 
 ## Extending upon the model and/or retraining it
 
