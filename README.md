@@ -39,7 +39,7 @@ From within the web page, you can upload a nebula image and hit submit. Inferenc
 
 ## More Details, Please
 
-At a high level, nebulae can classified among 6 major categories:
+At a high level, nebulae can be classified among 6 major categories:
 - Dark: So dense that it blocks emitted light from objects behind it
 - Emission/H II regions: Emit spectral line radiation from excited/ionized gas
 - Reflection: Reflect large amounts of light from nearby stars
@@ -51,16 +51,16 @@ This tool has been trained on hundreds of images for 2/6 of the categories, dark
 
 ### Compiling a list of nebulae
 
-I began by researching the distinctions between the 6 different classifications, and then compiled a large list of actual nebulae that fell into each category. When compiling the nebulae, I made sure to include most alternative names/designations as well; for example, [NGC 2359](https://en.wikipedia.org/wiki/NGC_2359) is called NGC 2359 but it's also colloquially known among the astro community as Thor's Helmet. As a result, when I was collecting names, it looked a little like this:
+I began by researching the distinctions between the 6 different classifications, and then compiled a large list of actual nebulae that fell into each category. When compiling the nebulae, I made sure to include most alternative names/designations as well; for example, [NGC 2359](https://en.wikipedia.org/wiki/NGC_2359) is called NGC 2359 but it's also colloquially known among the astronomy community as Thor's Helmet. As a result, when I was collecting names, it looked a little like this:
 
 ```python
 emission = ["Barnard's Loop", "NGC 7635", "California Nebula", ("Sh2-155", "Sharpless 155", "S155", "Cave Nebula"), ... ]
 ```
-...where strings within this list were nebulae that typically only had that one designation but tuples were all designations.
+...where strings within this list refer to nebulae with one designation but tuples refer to one nebula with multiple designations.
 
 ### Image collection
 
-This was by far the most time consuming part of this project. For each nebula in my compiled list, I would manually search for them on Google Images and then used a plugin called [Fatkun Batch Download Image](https://chrome.google.com/webstore/detail/fatkun-batch-download-ima/nnjjahlikiabnchcpehcpkdeckfgnohf) to batch download hundreds of images at a time, making sure to exclude those that contained watermarks or other undesirable signal.
+This was by far the most time consuming part of this project. For each nebula in my compiled list, I would manually search for them on Google Images and then used a plugin called [Fatkun Batch Download Image](https://chrome.google.com/webstore/detail/fatkun-batch-download-ima/nnjjahlikiabnchcpehcpkdeckfgnohf) to batch download hundreds of images at a time, making sure to exclude those that contained watermarks or other undesirable characteristics.
 
 ### Transfer learning
 
@@ -68,7 +68,7 @@ I wanted to use transfer learning because I knew I wouldn't be able to collect t
 
 ## Extending upon the model and/or retraining it
 
-If you want to add more functionality by either adding other images or by retraining the model with more particular hyperparameters, here's how you can do that.
+If you want to add more functionality by either adding other images or by retraining the model with more particular hyperparameters, it's quite simple to do so.
 
 From the root of the project directory, run:
 
@@ -77,7 +77,7 @@ IMAGE_SIZE=224
 ARCHITECTURE="mobilenet_1.0_${IMAGE_SIZE}"
 ```
 
-The MobileNet we're using is configurable in 2 ways: input image resolution and the relative size of the model as a fraction of the largest MobileNet. The input image resolution options are 128, 160,192, or 224px. My model uses 224px because although this may take more time, it results in better accuracy. As for architecture, the options are 1.0, 0.75, 0.50, or 0.25. My model uses 1.0.
+The MobileNet we're using is configurable in 2 ways: input image resolution and the relative size of the model as a fraction of the largest MobileNet. The input image resolution options are 128, 160,192, or 224px. My model uses 224px because although this setting results in longer training time, it also results in better accuracy. As for architecture, the options are 1.0, 0.75, 0.50, or 0.25. My model uses 1.0 because I wanted to have my model be the size of the largest MobileNet.
 
 After this, we'll run:
 
@@ -99,7 +99,7 @@ The `retrained_graph.pb` file will now be updated such that when you re-run the 
 
 ## Contributing
 
-Pull requests are (very) welcome, whether it be updating incorrect information about the nebula classification itself or the code. I'm just a passionate beginner interested in getting more involved in the field of astrophotography and imaging and would very much appreciate any and all expert feedback! :)
+Pull requests are (very) welcome, whether it be updating incorrect information about the nebula classification task itself or the code. I'm just a passionate beginner interested in getting more involved in the field of astrophotography and imaging and would very much appreciate any and all expert feedback! :)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
