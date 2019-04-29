@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Nebulae Classification Using Transfer Learning</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="nebulae-classification-using-transfer-learning">Nebulae Classification Using Transfer Learning</h1>
+<p>This tool was created to assist in the task of nebulae classification using the deep learning library TensorFlow coupled with a powerful image classification technique known as transfer learning.</p>
+<h2 id="setup-and-installation">Setup and Installation</h2>
+<p>Begin by cloning the directory to the desired directory on your local machine and moving into it:</p>
+<pre><code class="language-bash"><div>git <span class="hljs-built_in">clone</span> https://github.com/bansailboat/nebula-classifier
+<span class="hljs-built_in">cd</span> nebula-classifier
+</div></code></pre>
+<p>It would be best to create a new environment to run the code. With conda, you can run:</p>
+<pre><code class="language-bash"><div>conda create --name &lt;env&gt; --file requirements.txt
+</div></code></pre>
+<p>...passing in the desired name of the conda environment in place of <code>&lt;env&gt;</code>.</p>
+<p>Then activate this environment using:</p>
+<pre><code class="language-bash"><div>conda activate &lt;env&gt;
+</div></code></pre>
+<p>...passing in the name you designated for the new environment in place of <code>&lt;env&gt;</code>.</p>
+<h2 id="usage">Usage</h2>
+<p>This tool spins up a small web server using <a href="http://flask.pocoo.org/">Flask</a> so that you don't have to operate from within the command line.</p>
+<p>Run the following commands from the root of the project directory to get started in <code>localhost</code>:</p>
+<pre><code class="language-bash"><div><span class="hljs-built_in">export</span> FLASK_APP=nebula_classifier
+<span class="hljs-built_in">export</span> FLASK_ENV=production
+flask run
+</div></code></pre>
+<p>Navigate to the correct <code>localhost</code> port by simply right-clicking the output from the <code>flask run</code> command.</p>
+<p>From within the web page, you can upload a nebula image and hit submit. Inference will then be run as the trained model attempts to classify the image. Usually in a second or so, the results will be outputted back to the page with confidence estimates.</p>
+<h2 id="more-details-please">More Details, Please</h2>
+<p>At a high level, nebulae can classified among 6 major categories:</p>
+<ul>
+<li>Dark: So dense that it blocks emitted light from objects behind it</li>
+<li>Emission/H II regions: Emit spectral line radiation from excited/ionized gas</li>
+<li>Reflection: Reflect large amounts of light from nearby stars</li>
+<li>Planetary: Glowing shell of ionized gas ejected from red giant stars late in their lives</li>
+<li>Protoplanetary: The phase right before planetary</li>
+<li>Supernova remnant: Resulting structure of the explosion of a star during a supernova</li>
+</ul>
+<p>This tool has been trained on hundreds of images for 2/6 of the categories, dark and emission nebulae.</p>
+<h3 id="compiling-a-list-of-nebulae">Compiling a list of nebulae</h3>
+<p>I began by researching the distinctions between the 6 different classifications, and then compiled a large list of actual nebulae that fell into each category. When compiling the nebulae, I made sure to include most alternative names/designations as well; for example, <a href="https://en.wikipedia.org/wiki/NGC_2359">NGC 2359</a> is called NGC 2359 but it's also colloquially known among the astro community as Thor's Helmet. As a result, when I was collecting names, it looked a little like this:</p>
+<pre><code class="language-python"><div>emission = [<span class="hljs-string">"Barnard's Loop"</span>, <span class="hljs-string">"NGC 7635"</span>, <span class="hljs-string">"California Nebula"</span>, (<span class="hljs-string">"Sh2-155"</span>, <span class="hljs-string">"Sharpless 155"</span>, <span class="hljs-string">"S155"</span>, <span class="hljs-string">"Cave Nebula"</span>), ... ]
+</div></code></pre>
+<p>...where strings within this list were nebulae that typically only had that one designation but tuples were all designations.</p>
+<h3 id="image-collection">Image collection</h3>
+<p>This was by far the most time consuming part of this project. For each nebula in my compiled list, I would manually search for them on Google Images and then used a plugin called <a href="https://chrome.google.com/webstore/detail/fatkun-batch-download-ima/nnjjahlikiabnchcpehcpkdeckfgnohf">Fatkun Batch Download Image</a> to batch download hundreds of images at a time, making sure to exclude those that contained watermarks or other undesirable signal.</p>
+<h3 id="transfer-learning">Transfer learning</h3>
+<p>I wanted to use transfer learning because I knew I wouldn't be able to collect tens of thousands of images in the timeframe I was operating within. I used <a href="https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/?utm_campaign=chrome_series_machinelearning_063016&amp;utm_source=gdev&amp;utm_medium=yt-desc#0">this resource</a> to learn all about it and how powerful it is.</p>
+<h2 id="contributing">Contributing</h2>
+<p>Pull requests are (very) welcome, whether it be updating incorrect information about the nebula classification itself or the code. I'm just a passionate beginner interested in getting more involved in the field of astrophotography and imaging, and would very much appreciate any and all expert feedback! :)</p>
+<h2 id="license">License</h2>
+<p><a href="https://choosealicense.com/licenses/mit/">MIT</a></p>
+
+    </body>
+    </html>
