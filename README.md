@@ -65,10 +65,41 @@ This was by far the most time consuming part of this project. For each nebula in
 ### Transfer learning
 
 I wanted to use transfer learning because I knew I wouldn't be able to collect tens of thousands of images in the timeframe I was operating within. I used [this resource](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/?utm_campaign=chrome_series_machinelearning_063016&utm_source=gdev&utm_medium=yt-desc#0) to learn all about it and how powerful it is.
-  
+
+## Extending upon the model and/or retraining it
+
+If you want to add more functionality by either adding other images or by retraining the model with more particular hyperparameters, here's how you can do that.
+
+From the root of the project directory, run:
+
+```bash
+IMAGE_SIZE=224
+ARCHITECTURE="mobilenet_1.0_${IMAGE_SIZE}"
+```
+
+The MobileNet we're using is configurable in 2 ways: input image resolution and the relative size of the model as a fraction of the largest MobileNet. The input image resolution options are 128, 160,192, or 224px. My model uses 224px because although this may take more time, it results in better accuracy. As for architecture, the options are 1.0, 0.75, 0.50, or 0.25. My model uses 1.0.
+
+After this, we'll run:
+
+```bash
+python -m scripts.retrain \
+  --bottleneck_dir=tf_files/bottlenecks \
+  --how_many_training_steps=4000 \
+  --model_dir=tf_files/models/ \
+  --summaries_dir=tf_files/training_summaries/"${ARCHITECTURE}" \
+  --output_graph=tf_files/retrained_graph.pb \
+  --output_labels=tf_files/retrained_labels.txt \
+  --architecture="${ARCHITECTURE}" \
+  --image_dir=tf_files/flower_photos
+```
+
+Next to the `--how_many_training_steps` flag, feel free to enter a number different from 4000.
+
+The `retrained_graph.pb` file will now be updated such that when you re-run the flask web page and upload a new image, the new model will be the one being used.
+
 ## Contributing
 
-Pull requests are (very) welcome, whether it be updating incorrect information about the nebula classification itself or the code. I'm just a passionate beginner interested in getting more involved in the field of astrophotography and imaging, and would very much appreciate any and all expert feedback! :)
+Pull requests are (very) welcome, whether it be updating incorrect information about the nebula classification itself or the code. I'm just a passionate beginner interested in getting more involved in the field of astrophotography and imaging and would very much appreciate any and all expert feedback! :)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
